@@ -29,6 +29,13 @@ app.use(express.static("public"));
 // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/nyTimesTech", { useNewUrlParser: true });
 
+
+// Set Handlebars.
+var exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
 // Routes
 
 // A GET route for scraping the echoJS website
@@ -117,6 +124,11 @@ app.post("/articles/:id", function(req, res) {
       res.json(err);
     });
 });
+
+// Import routes and give the server access to them.
+var routes = require("./controllers/controller.js");
+
+app.use(routes);
 
 // Start the server
 app.listen(PORT, function() {
