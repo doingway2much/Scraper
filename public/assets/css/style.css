@@ -85,3 +85,26 @@ img {
   }
 
  
+  @media screen and (min-width: 480px) {
+    .jumbotron {
+        background-image: url("../img/kicks_bg.png");
+        max-width:100%;
+        height:auto;
+        background-color: red;
+        box-shadow: 0 0 10px black;
+    }
+    .card {
+        /* float: left;  */
+        /* margin: 10px; */
+        padding: 10px;
+        margin-bottom: 10px;
+        box-shadow: 0 0 15px black;
+        width: 95%;
+        height: 500px;
+    }
+    .row {
+        padding-left: 10px;
+    }
+}
+    
+   
