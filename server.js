@@ -27,8 +27,8 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/nyTimesTech", { useNewUrlParser: true });
-
+// mongoose.connect("mongodb://localhost/nyTimesTech", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/kicks_DB", { useNewUrlParser: true });
 
 // Set Handlebars.
 var exphbs = require("express-handlebars");
@@ -41,32 +41,58 @@ app.set("view engine", "handlebars");
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios
-  axios.get("https://www.nytimes.com/section/technology").then(function(response) {
+  // axios.get("https://www.nytimes.com/section/technology").then(function(response) {
+    axios.get("https://sneakernews.com/release-dates/").then(function(response) {
+    
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
 
-    // Now, we grab every h2 within an article tag, and do the following:
-    $("article h2").each(function(i, element) {
-      // Save an empty result object
-      var result = {};
 
+    // console.log(response.data);
+    // Now, we grab every h2 within an article tag, and do the following:
+    $(".releases-box").each(function(i, element) {
+      // Save an empty result object
+      
+      var result = {};
+      
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this)
+        .children(".content-box")
+        .children("h2")
         .children("a")
         .text();
-      result.link = "https://www.nytimes.com" + $(this)
+      // console.log(result.title);
+      result.link = $(this)
+        .children('.image-box')
         .children("a")
         .attr("href");
-
+      // console.log(result.link);
+      result.img = $(this)
+        .children('.image-box')
+        .children("a")
+        .children("img")
+        .attr("src");
+      
+      result.date = $(this)
+        .children(".content-box")
+        .children(".release-date-and-rating")
+        .children(".release-date")
+        .text().trim();
+      // console.log(result.date);
+      console.log(result);
+      // Object.keys(result).forEach(key => result[key] === undefined ? delete result[key] : '');
+      // Object.keys(result).forEach(key => result[key] === '' ? delete result[key] : '');
+     
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
         .then(function(dbArticle) {
           // View the added result in the console
-          console.log(dbArticle);
+          // console.log(dbArticle);
         })
         .catch(function(err) {
           // If an error occurred, log it
-          console.log(err);
+          // console.log(err);
+        
         });
     });
 
@@ -125,7 +151,7 @@ app.post("/articles/:id", function(req, res) {
     });
 });
 
-app.delete("/articles/:id", function(req, res) {
+app.delete("/notes/:id", function(req, res) {
   // Create a new note and pass the req.body to the entry
   db.Note.deleteOne(req.body)
     .then(function(dbNote) {
@@ -144,6 +170,44 @@ app.delete("/articles/:id", function(req, res) {
     });
 });
 
+app.delete("/articles/:id", function(req, res) {
+  // Create a new note and pass the req.body to the entry
+  db.Article.deleteOne(req.body)
+    .then(function(dbArticle) {
+      // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
+      // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+      // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+      return db.Article.findByIdAndRemove({ _id: dbArticle._id });
+    })
+    .then(function(dbArticle) {
+      // If we were able to successfully update an Article, send it back to the client
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
+
+app.put("/articles/:id", function(req, res) {
+  // Create a new note and pass the req.body to the entry
+  db.Article.update(req.body)
+    .then(function(dbArticle) {
+      console.log(dbArticle);
+      // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
+      // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+      // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+      return db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: true }, { new: true });
+    })
+    .then(function(dbArticle) {
+      // If we were able to successfully update an Article, send it back to the client
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
 
 // Import routes and give the server access to them.
 var routes = require("./controllers/controller.js");

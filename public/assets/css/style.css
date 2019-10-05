@@ -1,22 +1,34 @@
-body { 
-    background-color: grey;
+#kicksname {
+    font-size: 55px;
+    color: black;
+    font-family: 'Anton', sans-serif;
 }
-      #wrapper {
-        width: 960px;
-        margin-left: auto;
-        margin-right: auto;
-        padding-top: 5%;
-      }
-      #articles {
+#release-date {
+    margin-top: -15px;
+    font-size: 40px;
+    color: red;
+    font-family: 'Anton', sans-serif;
+}
+#release {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    font-family: 'Oswald', sans-serif;
+}
+img {
+    width: 300px;
+    height: 200px;
+}
+      /* #articles {
         display: inline-block;
         overflow: auto;
-        width: 60%;
+        width: 80%;
         height: 700px;
-      }
-      #notes {
+      } */
+      /* #notes {
         float: right;
         width: 37%;
-      }
+      } */
       textarea, input {
         display: block;
         width: 100%;
@@ -30,4 +42,3 @@ body {
         height: 200px;
         font-size: 18px;
       }
-
