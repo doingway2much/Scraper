@@ -1,7 +1,14 @@
 body {
-    /* background-image: url("../img/sky.jpg");
-    width:100%; height:100%; */
+    background-image: url("../img/bg.jpg");
+    width:100%; height:100%;
 
+}
+.content {
+    background-color: white;
+}
+
+#articles {
+    text-align: center;
 }
 .jumbotron {
     background-image: url("../img/kicks_bg.png");
@@ -26,8 +33,7 @@ body {
     font-family: 'Anton', sans-serif;
 }
 .row {
-   
-    padding-left: 25px;
+    padding-left: 60px;
 }
 #kicksname {
     font-size: 25px;
@@ -78,10 +84,4 @@ img {
     font-size: 18px;
   }
 
-      /* #articles {
-        display: inline-block;
-        overflow: auto;
-        width: 25%;
-        height: 700px;
-      }
  
