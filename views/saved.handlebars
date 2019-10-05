@@ -9,9 +9,10 @@
 
     <div class="row">
         <h2 id="section">Scraped Kicks:</h2>
-        <div id="articles">
-            {{# each articles }}
+         {{# each articles }}
               {{#if this.saved}}
+        <div id="articles">
+           
             <div class="card">
                 <div class="card-body">
                     <p id="kicksname" data-toggle="modal" data-target="#myModal" id="kicksTitle" data-id={{this._id}}>
