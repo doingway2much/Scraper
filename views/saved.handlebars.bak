@@ -1,0 +1,62 @@
+<div class="container content">
+    <div class=jumbotron>
+        <h1 id="roboto" class="display-2">Kick's Scraper</h1>
+        <p class="lead"></p>Browse recently scraped kicks and leave notes on them</p>
+   <a href="/" id="home" type="button" class="btn btn-danger">Home</a>
+    <a href="/scrape" id="scrape" type="button" class="btn btn-danger">Scrape Kicks!!!!</a>
+    <a href="/saved" id="saved" type="button" class="btn btn-danger">View Saved Kick's</a>
+    </div>
+ 
+    <div class="row">
+        <h2 id="section">Saved Kick's:</h2>
+        <div id="articles">
+            {{# each articles }}
+           {{!-- {{#if this.saved}} --}}
+            <a class="card">
+                <div class="card-body">
+          
+                        <p id="kicksname" data-toggle="modal" data-target="#myModal" id="kicksTitle" data-id={{this._id}}>
+                        {{ this.title }}</p>
+                        <br>
+                        <p id="release">Release date:</p>
+                        <p id="release-date">{{this.date}}</p>
+                        <br>
+
+                        <img src="{{this.img}}" alt="{{ this.title }}">
+                        <br>
+                        <a href="{{this.link}}" target="" type="button" class="btn btn-info">External Link</a>
+                        <a data-id="{{this._id}}" href="" id="deletekicks" type="button" class="btn btn-danger">DELETE</a>
+                        <a data-id="{{this._id}}" href="" id="savekicks" data-saved="{{this.saved}}" type="button"
+                        class="btn btn-success">SAVED</a>
+        {{!-- {{/if}} --}}
+                        <br>
+                  
+               
+        
+                {{/each}}
+                  </div>
+            </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button id="closenote" type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Add Note to your kicks</h4>
+                            </div>
+                            <div class="modal-body">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button id="closenote" type="button" class="btn btn-default"
+                                    data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+        </div>
