@@ -10,7 +10,7 @@
     <div class="row">
         <h2 id="section">Scraped Kicks:</h2>
          {{# each articles }}
-              {{#if this.saved}}
+        {{#if this.saved}}
         <div id="articles">
            
             <div class="card">
@@ -38,8 +38,9 @@
                     <br>
                 </div>
             </div>
+        
             {{/each}}
-
+  </div>
 
             <!-- Modal -->
             <div class="modal fade" id="myModal" role="dialog">
