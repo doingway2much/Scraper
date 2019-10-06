@@ -1,7 +1,7 @@
 <div class="container content">
     <div class=jumbotron>
         <h1 id="kicks-title" class="display-2">Kicks Scraper</h1>
-        <p class="lead"></p>Browse recently scraped kicks and leave notes on them</p>
+        <p class="lead"></p>Browse recently scraped kicks and leave notes on them by click on their name</p>
             <a href="/" id="home" type="button" class="btn btn-danger">Home</a>
     <a href="/scrape" id="scrape" type="button" class="btn btn-danger">Scrape Kicks!!!!</a>
     <a href="/saved" id="saved" type="button" class="btn btn-danger">View Saved Kick's</a>
@@ -17,8 +17,10 @@
                     <p id="kicksname" data-toggle="modal" data-target="#myModal" id="kicksTitle" data-id={{this._id}}>
                         {{ this.title }}</p>
                     <br>
+                    <div id="release-div">
                     <p id="release">Release date:</p>
                     <p id="release-date">{{this.date}}</p>
+                    </div>
                     <br>
 
                     <img src="{{this.img}}" alt="{{ this.title }}">
